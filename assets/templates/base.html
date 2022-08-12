@@ -11,10 +11,16 @@
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
       crossorigin="anonymous"
     />
+    <!-- base.CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/base.css') }}">
+    <!-- custom CSS -->
     <link rel="stylesheet" href="{% block css %}{% endblock %}" />
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('signup') }}">Signup</a>
     {% block body %} {% endblock %}
 
     <!-- BOOTSTRAP JavaScript Bundle with Popper -->
