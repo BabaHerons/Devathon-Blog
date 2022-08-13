@@ -16,7 +16,7 @@ def home():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username')
+        username = request.form.get('username').lower()
         password = request.form.get('password')
         user = User.query.filter_by(username=username, password=password).first()
         if user:
@@ -32,7 +32,7 @@ def logout():
 @app.route('/signup', methods = ['GET','POST'])
 def signup():
     if request.method == 'POST':
-        username = request.form.get('username')
+        username = request.form.get('username').lower()
         password = request.form.get('password')
         email = request.form.get('email')
         fullname = request.form.get('fullname')
