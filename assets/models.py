@@ -17,6 +17,7 @@ class Posts(db.Model):
     likes_count = db.Column(db.Integer(), nullable=True)
     dislikes_count = db.Column(db.Integer(), nullable=True)
     userid = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    post_userfullname = db.Column(db.String(25), db.ForeignKey('user.fullname'))
 
 class Comments(db.Model):
     id = db.Column(db.Integer(), primary_key = True)

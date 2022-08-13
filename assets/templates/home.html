@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}HOME | Blog{% endblock %}
+{% block css %}{{url_for("static", filename='css/home.css')}}{% endblock %}
 {% block body %}
     
 
@@ -7,17 +8,18 @@
         <h1>Blog Posts</h1>
         <h3>Welcome, these are the latest Blog posts.</h3><br>
 
-        {% if signedIn == 'true' %}
+        {% if user %}
             <span class="h2">Hello, {{ user.fullname }}</span>
+            <br>
             <button class="btn btn-primary" onclick="createPost()">Create Post</button>
-            <form action="{{ url_for('create_post', username = user.username) }}" id="post" , method="post">
+            <form action="{{ url_for('create_post') }}" id="post" , method="post">
 
             </form>
         {% endif %}
 
         <!-- This thing is to be iterated -->
         <!-- Start -->
-        <div class="d-flex justify-content-center p-5">
+        <!-- <div class="d-flex justify-content-center p-5">
             <div class="p-2">
                 <h3>heading of the blog</h3>
                 <span class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum nihil, ratione obcaecati quos perspiciatis libero.</span>
@@ -26,19 +28,22 @@
                 <h3>heading of the blog</h3>
                 <span class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum nihil, ratione obcaecati quos perspiciatis libero.</span>
             </div>
-        </div>
+        </div> -->
         <!-- End -->
         
+        <div class="d-flex p-5" id="posts">
         {% if posts %}
         {% for post in posts %}
-        <div class="d-flex justify-content-center p-5 w-50">
-            <div class="p-2">
+            <div class="p-2 py-5 w-50">
                 <h3>{{ post.post_heading }}</h3>
-                <span class="lead">{{ post.post }}</span>
+                <span class="lead">{{ post.post[0:200] }}...</span>
+                <br>
+                <br>
+                <footer class="blockquote-footer">Written by <cite title="Source Title">{{ post.post_userfullname }}</cite></footer>
             </div>
+            {% endfor %}
+            {% endif %}
         </div>
-        {% endfor %}
-        {% endif %}
     </div>
 {% endblock %}
 {% block js %}{{url_for("static", filename='js/home.js')}}{% endblock %}
