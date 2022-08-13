@@ -12,9 +12,10 @@ class User(db.Model):
 
 class Posts(db.Model):
     id = db.Column(db.Integer(), primary_key = True)
+    post_heading = db.Column(db.String)
     post = db.Column(db.String(5000), nullable = False, unique = True)
-    likes_count = db.Column(db.Integer())
-    dislikes_count = db.Column(db.Integer())
+    likes_count = db.Column(db.Integer(), nullable=True)
+    dislikes_count = db.Column(db.Integer(), nullable=True)
     userid = db.Column(db.Integer(), db.ForeignKey('user.id'))
 
 class Comments(db.Model):

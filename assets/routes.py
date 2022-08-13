@@ -5,7 +5,8 @@ from assets.models import User, Posts, Comments, LikedPosts
 
 @app.route('/')
 def home():
-    return render_template('home.html')         # here need to send signedIn = true or false as a string value.
+    posts = Posts.query.all()
+    return render_template('home.html', posts = posts)         # here need to send signedIn = true or false as a string value.
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -13,8 +14,9 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         user = User.query.filter_by(username=username, password=password).first()
+        posts = Posts.query.all()
         if user:
-            return render_template('home.html', signedIn = 'true', user = user)
+            return render_template('home.html', signedIn = 'true', user = user, posts=posts)
     return render_template('signuporlogin.html')
 
 @app.route('/signup', methods = ['GET','POST'])
@@ -34,4 +36,18 @@ def signup():
             return redirect(url_for('home'))
     return render_template('signuporlogin.html', signup = 'true')
 
+@app.route('/<string:username>/create-post', methods = ['GET', 'POST'])
+def create_post(username):
+    user = User.query.filter_by(username = username).first()
+    if request.method == 'POST':
+        heading = request.form.get('heading')
+        post = request.form.get('post')
+        if not Posts.query.filter_by(post=post).first():
+            postObject = Posts(post=post, userid=user.id, post_heading=heading)
+            db.session.add(postObject)
+            db.session.commit()
+            posts = Posts.query.all()
+            return render_template('home.html', signedIn='true', user=user, posts=posts)
+    posts = Posts.query.all()
+    return render_template('home.html', signedIn='true', user=user, createPost='true', posts=posts)
 
