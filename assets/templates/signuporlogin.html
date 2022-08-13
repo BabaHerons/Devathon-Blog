@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <form action="{{ url_for('signup') }}" class="w-50 bg-dark p-5 m-5" method="post">
+                <h2>SIGNUP</h2><br><br>
+                <input type="text" name="username" placeholder="Enter Username" class="form-control"><br><br>
+                <input type="password" name="password" placeholder="Enter Password" class="form-control"><br><br>
+                <input type="email" name="email" placeholder="Enter Email" class="form-control"><br><br>
+                <input type="text" name="fullname" placeholder="Enter Full Name" class="form-control"><br><br>
+                <button class="btn btn-primary">Signup</button>
+            </form>
+            <form action="{{ url_for('login') }}" class="w-50 bg-dark p-5 m-5" method="post">
+                <h2>LOGIN</h2><br><br>
+                <input type="text" name="username" placeholder="Enter Username" class="form-control"><br><br>
+                <input type="password" name="password" placeholder="Enter Password" class="form-control"><br><br>
+                <button class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
