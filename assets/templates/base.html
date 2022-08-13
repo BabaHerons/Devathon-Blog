@@ -11,10 +11,21 @@
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
       crossorigin="anonymous"
     />
+    <!-- base.CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/base.css') }}">
+    <!-- custom CSS -->
     <link rel="stylesheet" href="{% block css %}{% endblock %}" />
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
+    <a href="{{ url_for('home') }}"><button class="btn btn-warning">Home</button></a>
+    {% if signedIn == 'true' %}
+      <a href="{{ url_for('home') }}"><button class="btn btn-danger">Log out</button></a>
+    {% else %}
+      <a href="{{ url_for('login') }}"><button class="btn btn-primary">Log in</button></a>
+      <a href="{{ url_for('signup') }}"><button class="btn btn-info">Sign up</button></a>
+    {% endif %}
+
     {% block body %} {% endblock %}
 
     <!-- BOOTSTRAP JavaScript Bundle with Popper -->
